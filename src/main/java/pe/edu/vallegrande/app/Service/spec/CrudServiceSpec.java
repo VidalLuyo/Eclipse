@@ -10,6 +10,8 @@ public interface CrudServiceSpec<T> {
 	 */
 	List<T> getActive();
 	
+	List<T> get();
+	
 	/**
 	 * Consulta todos los registros inactivos de la tabla.
 	 * @return Retorna una lista.

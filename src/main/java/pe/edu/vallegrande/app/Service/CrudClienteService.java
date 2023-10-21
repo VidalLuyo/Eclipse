@@ -15,7 +15,8 @@ import pe.edu.vallegrande.app.Service.spec.RowMapper;
 
 public class CrudClienteService implements CrudServiceSpec<Cliente>, RowMapper<Cliente> {
 
-	private final String SQL_SELECT_ACTIVE = "SELECT * FROM Cliente_active";
+	private final String SQL_SELECT_ACTIVE = "SELECT * FROM client WHERE active = 'A'";
+	private final String SQL_SELECT = "SELECT * FROM client";
 	private final String SQL_SELECT_INACTIVE = "SELECT * FROM Cliente_inactive";
 	private final String SQL_INSERT = "INSERT INTO Cliente (gender, names, last_name, document_type, document_number, email, cellphone) VALUES (?,?,?,?,?,?,?)";
 	private final String SQL_UPDATE = "UPDATE Cliente SET gender=?, names=?, last_name=?, document_type=?, document_number=?, email=?, cellphone=? WHERE identifier=?";
@@ -32,6 +33,28 @@ public class CrudClienteService implements CrudServiceSpec<Cliente>, RowMapper<C
 		try {
 			cn = AccesoDB.getConnection();
 			pstm = cn.prepareStatement(SQL_SELECT_ACTIVE);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				Cliente bean = mapRow(rs);
+				lista.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
+	
+	@Override
+	public List<Cliente> get() {
+		List<Cliente> lista = new ArrayList<>();
+		Connection cn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs;
+		try {
+			cn = AccesoDB.getConnection();
+			pstm = cn.prepareStatement(SQL_SELECT);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				Cliente bean = mapRow(rs);

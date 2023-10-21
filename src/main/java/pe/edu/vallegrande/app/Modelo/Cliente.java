@@ -3,7 +3,7 @@ package pe.edu.vallegrande.app.Modelo;
 public class Cliente {
 
 	private Integer identifier;
-	private String gender, names, last_name, document_type, document_number, email, cellphone, active;
+	private String gender,names, last_name, document_type, document_number, email, cellphone, active;
 	
 	public Cliente() {
 		// TODO Auto-generated constructor stub
